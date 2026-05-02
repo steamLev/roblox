@@ -1,0 +1,174 @@
+{
+  "schemaVersion": 1,
+  "project": {
+    "name": "99rooms-matan",
+    "rootConfig": "default.project.json",
+    "summary": "Игровой прогон из 99 этапов: задачи на дроби, четыре варианта или текстовый ответ; после верного ответа открывается дверь; условие и варианты — SurfaceGui на Screen_Surface, верхнего HUD нет."
+  },
+  "rojo": {
+    "paths": [
+      { "repoPath": "src/shared", "instancePath": "ReplicatedStorage.Shared" },
+      { "repoPath": "src/server", "instancePath": "ServerScriptService.Server" },
+      { "repoPath": "src/client", "instancePath": "StarterPlayer.StarterPlayerScripts.Client" }
+    ],
+    "remotesFolder": "ReplicatedStorage.Remotes"
+  },
+  "remotes": [
+    {
+      "name": "GetRunState",
+      "className": "RemoteFunction",
+      "role": "Запрос состояния забега; второй аргумент fromWall === true снимает taskLocked и позволяет выдать задачу."
+    },
+    {
+      "name": "SubmitAnswer",
+      "className": "RemoteFunction",
+      "role": "Отправка ответа: { problemToken, choiceIndex } или { problemToken, answer }."
+    },
+    {
+      "name": "OpenDoor",
+      "className": "RemoteEvent",
+      "role": "Зарезервировано; сервер не подписан — дверь только через DoorService.open после верного ответа."
+    }
+  ],
+  "domains": [
+    {
+      "id": "run_session",
+      "label": "Забег / сессия",
+      "side": "server",
+      "modules": [
+        {
+          "path": "src/server/Run/RunSession.luau",
+          "role": "Состояние игрока: этап 1..99, RNG, задача, problemToken, варианты, попытки (3), taskLocked. Валидация, переход этапа, вызов DoorService."
+        },
+        {
+          "path": "src/server/Bootstrap.server.luau",
+          "role": "Точка входа: сборка комнаты, DoorService.bind, обработчики GetRunState и SubmitAnswer."
+        }
+      ],
+      "publicTypes": ["PublicState", "SubmitResult", "SubmitPayload"]
+    },
+    {
+      "id": "math",
+      "label": "Математика",
+      "side": "shared",
+      "package": "ReplicatedStorage.Shared.Math",
+      "entry": "src/shared/Math/init.luau",
+      "modules": [
+        { "path": "src/shared/Math/Fraction.luau", "role": "Дроби и операции." },
+        { "path": "src/shared/Math/ProblemGenerator.luau", "role": "Генерация условия под параметры этапа." },
+        { "path": "src/shared/Math/AnswerChecker.luau", "role": "Проверка текстового ответа." },
+        { "path": "src/shared/Math/Choices.luau", "role": "Четыре строки-варианта и индекс правильного." }
+      ]
+    },
+    {
+      "id": "stage_config",
+      "label": "Конфиг этапов",
+      "side": "shared",
+      "modules": [
+        {
+          "path": "src/shared/Run/StageConfig.luau",
+          "role": "STAGE_COUNT=99, maxDenominator(stage), allowImproper(stage), label(stage). Связь номер комнаты → сложность."
+        }
+      ]
+    },
+    {
+      "id": "world",
+      "label": "Мир / геометрия",
+      "side": "server",
+      "modules": [
+        {
+          "path": "src/server/Map/TestIqRoom.luau",
+          "role": "Процедурная комната Workspace.MatanTestIqRoom: пол, стены, экран, TaskWallButton, DoorInteract, DoorPanel с атрибутами шарнира."
+        },
+        {
+          "path": "src/server/Map/DoorService.luau",
+          "role": "Tween двери; open/close после верного ответа; ручной OpenDoor не обрабатывается."
+        },
+        {
+          "path": "src/server/Map/CorridorMap.luau",
+          "role": "Коридор MatanCorridor; в Bootstrap сейчас не подключается.",
+          "wiredInBootstrap": false
+        }
+      ]
+    },
+    {
+      "id": "ui_client",
+      "label": "Интерфейс клиента",
+      "side": "client",
+      "modules": [
+        {
+          "path": "src/client/WallTask.client.luau",
+          "role": "SurfaceGui TaskSurfaceGui на Screen_Surface: текст задачи и 4 кнопки; GetRunState(true) по проксимити у TaskWallButton; SubmitAnswer. Ручная дверь убрана."
+        }
+      ]
+    }
+  ],
+  "flows": [
+    {
+      "id": "get_task",
+      "label": "Получить задачу",
+      "steps": [
+        "Игрок активирует стену → клиент вызывает GetRunState(true).",
+        "RunSession.getState при fromWall сбрасывает taskLocked.",
+        "ensureProblem создаёт задачу (этап 1 — демо 1/2+1/3; далее ProblemGenerator + Choices).",
+        "Клиент рисует SurfaceGui на Screen_Surface (доли высоты канваса, чтобы 4 варианта не обрезались): prompt, choices, attemptsLeft."
+      ]
+    },
+    {
+      "id": "submit_answer",
+      "label": "Ответить",
+      "steps": [
+        "Клиент SubmitAnswer с problemToken и choiceIndex или answer.",
+        "При успехе: stage++, очистка задачи, taskLocked=true, DoorService.open(), через ~1.1s DoorService.close().",
+        "При ошибке: attemptsLeft--; при 0 — сброс задачи, снова нужна стена."
+      ]
+    },
+    {
+      "id": "manual_door",
+      "label": "Ручная дверь",
+      "steps": [
+        "Отключена: OpenDoor на сервере не подписан; дверь открывается только из RunSession после верного ответа."
+      ]
+    }
+  ],
+  "dependencyGraph": {
+    "nodes": [
+      { "id": "WallTask.client", "kind": "client" },
+      { "id": "Remotes", "kind": "replicated" },
+      { "id": "Shared.Math", "kind": "shared" },
+      { "id": "Shared.Run.StageConfig", "kind": "shared" },
+      { "id": "Bootstrap.server", "kind": "server" },
+      { "id": "Run.RunSession", "kind": "server" },
+      { "id": "Map.TestIqRoom", "kind": "server" },
+      { "id": "Map.DoorService", "kind": "server" },
+      { "id": "Workspace.MatanTestIqRoom", "kind": "workspace" }
+    ],
+    "edges": [
+      { "from": "WallTask.client", "to": "Remotes", "relation": "invokes" },
+      { "from": "WallTask.client", "to": "Workspace.MatanTestIqRoom", "relation": "mounts_gui_on" },
+      { "from": "Bootstrap.server", "to": "Map.TestIqRoom", "relation": "requires" },
+      { "from": "Bootstrap.server", "to": "Map.DoorService", "relation": "requires" },
+      { "from": "Bootstrap.server", "to": "Run.RunSession", "relation": "requires" },
+      { "from": "Map.DoorService", "to": "Workspace.MatanTestIqRoom", "relation": "binds" },
+      { "from": "Map.TestIqRoom", "to": "Workspace.MatanTestIqRoom", "relation": "creates" },
+      { "from": "Run.RunSession", "to": "Shared.Math", "relation": "requires" },
+      { "from": "Run.RunSession", "to": "Shared.Run.StageConfig", "relation": "requires" },
+      { "from": "Run.RunSession", "to": "Map.DoorService", "relation": "calls" },
+      { "from": "Remotes", "to": "Run.RunSession", "relation": "dispatches_to" }
+    ]
+  },
+  "invariants": [
+    "Прогресс и задача: единственный источник — sessions[player] в RunSession; при PlayerRemoving сессия удаляется.",
+    "problemToken предотвращает устаревшие submit после смены задачи.",
+    "taskLocked: задача не выдаётся без взаимодействия со стеной (кроме уже активной выданной задачи).",
+    "Этап 1 захардкожен в RunSession отдельно от ProblemGenerator (демо-якорь)."
+  ],
+  "fileIndex": [
+    { "intent": "число комнат, сложность по этапу", "path": "src/shared/Run/StageConfig.luau" },
+    { "intent": "генерация и проверка дробей", "path": "src/shared/Math/*.luau" },
+    { "intent": "правила забега, попытки, дверь после ответа", "path": "src/server/Run/RunSession.luau" },
+    { "intent": "подключить коридор", "path": "src/server/Bootstrap.server.luau", "also": "src/server/Map/CorridorMap.luau" },
+    { "intent": "UI задания на экране (SurfaceGui) и дверь", "path": "src/client/WallTask.client.luau" },
+    { "intent": "контракт сети", "path": "default.project.json" }
+  ]
+}
