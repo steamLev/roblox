@@ -1,0 +1,17 @@
+# PHASE 3 — ZERO GRAVITY SYSTEM
+
+Tasks:
+
+* design Roblox-friendly zero gravity gameplay
+* define floating object behavior
+* define movement changes
+* define gameplay opportunities during chaos
+
+Self-check:
+
+* Is zero gravity fun, not only frustrating?
+* Can skilled players creatively use chaos?
+* Does it create memorable moments?
+* Is player control readable?
+
+---

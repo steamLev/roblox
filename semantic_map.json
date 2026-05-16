@@ -119,7 +119,7 @@
       "label": "Ответить",
       "steps": [
         "Клиент SubmitAnswer с problemToken и choiceIndex или answer.",
-        "При успехе: stage++, очистка задачи, taskLocked=true, DoorService.open(), через 5s DoorService.close().",
+        "При успехе: stage++, очистка задачи, taskLocked=true, DoorService.open(), через ~1.1s DoorService.close().",
         "При ошибке: attemptsLeft--; при 0 — сброс задачи, снова нужна стена."
       ]
     },

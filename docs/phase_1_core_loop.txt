@@ -1,0 +1,22 @@
+## PHASE 1 — CORE LOOP DESIGN
+
+Tasks:
+
+* describe the gameplay loop in detail
+* create a 60-second vertical slice
+* describe player emotions every 10 seconds
+* explain the tension curve
+
+Constraints:
+
+* no unnecessary mechanics
+* focus only on the strongest gameplay loop
+
+Self-check:
+
+* Is the gameplay understandable within 30 seconds?
+* Does the player experience panic and relief?
+* Is the loop replayable?
+* Is the gameplay emotionally engaging without progression systems?
+
+---

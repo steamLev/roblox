@@ -1,0 +1,22 @@
+
+# FINAL OUTPUT FORMAT
+
+For every phase provide:
+
+1. System description
+2. Emotional goal
+3. Gameplay risks
+4. Simplification suggestions
+5. Viral moment potential
+6. Self-review
+
+At the end of every phase include:
+
+SELF REVIEW:
+
+* What is the strongest part?
+* What is unnecessary?
+* What may confuse players?
+* What may become repetitive?
+* What creates emotional tension?
+* What should be simplified?

@@ -1,0 +1,18 @@
+# PHASE 2 — LEVEL DESIGN
+
+Tasks:
+
+* design the first dome layout
+* determine player flow
+* define turret placement
+* define drone attack pacing
+* describe visual readability
+
+Self-check:
+
+* Does the player always understand the objective?
+* Is tension escalating naturally?
+* Is the environment visually readable during chaos?
+* Does the dome support cinematic moments?
+
+---

@@ -1,0 +1,34 @@
+# FAKE PLAYERS
+
+Every few minutes, humanoid entities emerge from the forest.
+
+They resemble normal Roblox players but behave unnaturally.
+
+Behavior:
+
+* standing near player
+* pretending to explore
+* delayed reactions
+* slow movement
+* occasionally copying player behavior
+
+Uncanny traits:
+
+* unnaturally wide toothy smile
+* prolonged staring
+* minimal interaction with the environment
+* unnatural body movement
+
+When fully revealed:
+their lower jaw opens down to the chest.
+
+The horror should come from:
+
+* uncertainty
+* observation
+* paranoia
+* behavioral abnormalities
+
+NOT constant jumpscares.
+
+---

@@ -1,0 +1,25 @@
+# PROJECT CONTEXT
+
+## GAME CONCEPT
+
+Psychological Roblox horror game where the player survives inside glass domes while solving math problems during drone attacks and zero-gravity chaos.
+
+The game focuses on:
+
+* panic
+* loss of control
+* temporary relief
+* unsafe safe-zones
+* psychological horror
+* tension through behavior and atmosphere
+
+Math is NOT educational UI.
+Math is a survival mechanic.
+
+The game should feel:
+
+* stressful
+* cinematic
+* replayable
+* socially viral
+* psychologically uncomfortable

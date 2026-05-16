@@ -1,0 +1,21 @@
+# IMPORTANT DESIGN RULES
+
+DO:
+
+* create tension through atmosphere and pacing
+* make players feel “I barely survived”
+* use contrast between chaos and silence
+* create readable gameplay situations
+* prioritize gameplay feel
+* design viral memorable moments
+
+DO NOT:
+
+* overload gameplay with mechanics
+* make math overly difficult
+* rely only on jumpscares
+* create safe zones that feel fully safe
+* explain horror directly through exposition
+* create confusing UI
+
+---

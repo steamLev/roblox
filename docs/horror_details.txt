@@ -1,0 +1,19 @@
+ 
+
+# PSYCHOLOGICAL HORROR DETAILS
+
+Sometimes before receiving a reward for solving a problem:
+the player briefly sees the monster’s face with its jaw opened.
+
+This should feel:
+
+* uncertain
+* fast
+* almost subliminal
+
+The player should question whether they really saw it. 
+
+
+
+
+

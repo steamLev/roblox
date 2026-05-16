@@ -1,0 +1,26 @@
+# CORE GAMEPLAY LOOP
+
+1. Player enters a glass dome
+2. Player sees a math panel
+3. Distant sounds:
+
+   * drone buzzing
+   * turret fire
+   * impacts on glass
+4. While solving the problem:
+
+   * drones attack the dome
+   * glass shakes
+   * lights flicker
+5. Heavy impacts trigger zero gravity
+6. Objects and UI elements float
+7. Player must solve the problem during chaos
+8. Correct answer temporarily activates turret defense
+9. Turrets destroy part of the drone swarm
+10. Player feels temporary relief
+11. Turrets eventually stop
+12. Player hears growing drone buzzing
+13. Looking upward reveals a massive swarm above the dome
+14. Player must escape to the next dome
+
+---

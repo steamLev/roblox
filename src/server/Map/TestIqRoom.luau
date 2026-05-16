@@ -328,21 +328,6 @@ function TestIqRoom.build(plan: Plan?): Model
 	-- Локальный +Z (Front) у доски смотрит в толщину стены; игрок внутри комнаты видит −Z → Back.
 	attachFractionHintBoard(hintBoard, Enum.NormalId.Back, AssetIds.FractionHintImage)
 
-	-- Та же схема на задней стене под экраном (центр), лицом в комнату — Front тонкой пластины по +Z.
-	local backHintW = math.min(screenW * 0.92, sx * 0.44)
-	local backHintH = 4.1
-	local belowScreenY = yWall * 0.92 - screenH * 0.5 - backHintH * 0.5 - 0.55
-	local backHintBoard = mk(
-		"HintDiagramBoard_BackWall",
-		Vector3.new(backHintW, backHintH, 0.12),
-		CFrame.new(0, belowScreenY, innerBackZ + 0.07),
-		COL_SCREEN_FRAME,
-		Enum.Material.SmoothPlastic,
-		false
-	)
-	backHintBoard.Parent = model
-	attachFractionHintBoard(backHintBoard, Enum.NormalId.Front, AssetIds.FractionHintImage)
-
 	-- Синяя полоса «бренда IQ-теста»
 	local trim = mk(
 		"AccentTrim",

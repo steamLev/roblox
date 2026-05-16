@@ -1,0 +1,17 @@
+# PHASE 4 — HORROR SYSTEM
+
+Tasks:
+
+* design fake player AI behavior
+* design reveal timing
+* create psychological tension systems
+* create subtle horror interactions
+
+Self-check:
+
+* Is the monster disturbing before attacking?
+* Does behavior create paranoia?
+* Is uncertainty preserved?
+* Does the horror rely on observation rather than only jumpscares?
+
+---

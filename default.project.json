@@ -1,7 +1,10 @@
 {
-  "name": "99rooms-matan",
+  "name": "99rooms-math-domes",
   "tree": {
     "$className": "DataModel",
+    "Workspace": {
+      "$className": "Workspace"
+    },
     "ReplicatedStorage": {
       "$className": "ReplicatedStorage",
       "Shared": {
@@ -9,29 +12,47 @@
       },
       "Remotes": {
         "$className": "Folder",
+        "SubmitDomeAnswer": {
+          "$className": "RemoteEvent"
+        },
+        "GameSignal": {
+          "$className": "RemoteEvent"
+        },
         "GetRunState": {
           "$className": "RemoteFunction"
         },
         "SubmitAnswer": {
           "$className": "RemoteFunction"
-        },
-        "OpenDoor": {
-          "$className": "RemoteEvent"
         }
       }
     },
     "ServerScriptService": {
       "$className": "ServerScriptService",
-      "Server": {
-        "$path": "src/server"
+      "Map": {
+        "$path": "src/server/Map"
+      },
+      "Run": {
+        "$path": "src/server/Run"
+      },
+      "Bootstrap": {
+        "$path": "src/server/Bootstrap.server.luau"
       }
     },
     "StarterPlayer": {
       "$className": "StarterPlayer",
       "StarterPlayerScripts": {
         "$className": "StarterPlayerScripts",
-        "Client": {
-          "$path": "src/client"
+        "WallTaskClient": {
+          "$path": "src/client/WallTask.client.luau"
+        },
+        "DomeAtmosphereClient": {
+          "$path": "src/client/DomeAtmosphere.client.luau"
+        },
+        "FirstDomeOpeningClient": {
+          "$path": "src/client/FirstDomeOpening.client.luau"
+        },
+        "DomeOutdoorAtmosphere": {
+          "$path": "src/client/DomeOutdoorAtmosphere.client.luau"
         }
       }
     }
